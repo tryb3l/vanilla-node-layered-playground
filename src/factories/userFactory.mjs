@@ -1,3 +1,4 @@
+"use strict";
 import UserService from "../services/userService.mjs";
 import UserRepository from "../repositories/userRepository.mjs";
 

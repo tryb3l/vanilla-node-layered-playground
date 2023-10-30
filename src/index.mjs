@@ -1,5 +1,4 @@
 "use strict";
-
 import http from "node:http";
 import handler from "./handler.mjs";
 

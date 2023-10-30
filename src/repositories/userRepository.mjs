@@ -1,3 +1,4 @@
+"use strict";
 import { readFile, writeFile } from "fs/promises";
 
 export default class UserRepository {
