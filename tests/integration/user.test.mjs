@@ -22,12 +22,15 @@ test("Users Integration Test Suite", async (t) => {
       body: JSON.stringify(data),
     });
 
-    assert.strictEqual(request.headers.get("content-type"), "application/json");
+    assert.deepStrictEqual(
+      request.headers.get("content-type"),
+      "application/json",
+    );
 
     assert.strictEqual(request.status, 201);
 
     const result = await request.json();
-    assert.strictEqual(
+    assert.deepStrictEqual(
       result.success,
       "User successfully created",
       "it should return a valid text message",

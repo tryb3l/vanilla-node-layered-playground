@@ -5,13 +5,15 @@ import { DEFAULT_HEADERS } from "../utils/util.mjs";
 
 const routes = ({ userService }) => ({
   "/users:get": async (request, response) => {
-    response.write("GET"), response.end();
+    const users = await userService.find();
+    response.write(JSON.stringify({ results: users }));
+    return response.end();
   },
   "/users:post": async (request, response) => {
     const data = await once(request, "data");
     const item = JSON.parse(data.toString());
     const user = new User(item);
-    const id = user.id;
+    const id = await userService.create(user);
     response.writeHead(201, DEFAULT_HEADERS);
     response.write(
       JSON.stringify({ id, success: "User successfully created" }),

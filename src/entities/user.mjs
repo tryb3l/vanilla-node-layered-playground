@@ -2,7 +2,7 @@
 import { randomUUID } from "crypto";
 
 export default class User {
-  constructor({ id, name, age }) {
+  constructor({ name, age }) {
     this.id = randomUUID();
     this.name = name;
     this.age = age;
