@@ -2,8 +2,9 @@
 import test from "node:test";
 import assert from "node:assert";
 import { promisify } from "node:util";
-test("Users Integration Test Suite", async (t) => {
-  const testPort = 9009;
+import { DEFAULT_HEADERS } from "../../src/utils/util.mjs";
+test("User Integration Test Suite", async (t) => {
+  const testPort = 9006;
 
   // that's bad practice because it mutates the environment
   process.env.PORT = testPort;
@@ -13,12 +14,13 @@ test("Users Integration Test Suite", async (t) => {
 
   await t.test("it should create a user", async (t) => {
     const data = {
-      name: "Bohdan2",
+      name: "Bohdan",
       age: 29,
     };
 
     const request = await fetch(testServerAddress, {
       method: "POST",
+      headers: DEFAULT_HEADERS,
       body: JSON.stringify(data),
     });
 
@@ -32,7 +34,7 @@ test("Users Integration Test Suite", async (t) => {
     const result = await request.json();
     assert.deepStrictEqual(
       result.success,
-      "User successfully created",
+      "User created",
       "it should return a valid text message",
     );
 
