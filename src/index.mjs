@@ -10,4 +10,4 @@ const server = http
     console.log(`Server running at http://localhost:${PORT}`),
   );
 
-export default server;
+export { server };
