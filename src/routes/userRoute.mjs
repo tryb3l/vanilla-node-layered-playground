@@ -1,5 +1,5 @@
 "use strict";
-import { once } from "events";
+import { once } from "node:events";
 import User from "../entities/user.mjs";
 import { DEFAULT_HEADERS } from "../utils/util.mjs";
 
@@ -11,19 +11,21 @@ const routes = ({ userService }) => ({
   },
   "/users:post": async (request, response) => {
     const data = await once(request, "data");
+    // @ts-ignore
     const item = JSON.parse(data.toString());
     const user = new User(item);
+
     const id = await userService.create(user);
+
     response.writeHead(201, DEFAULT_HEADERS);
     response.write(
-      JSON.stringify({ id, success: "User successfully created" }),
+      JSON.stringify({
+        id,
+        success: "User created",
+      }),
     );
+
     return response.end();
-  },
-  default: (request, response) => {
-    response.writeHead(404, DEFAULT_HEADERS);
-    response.write("ooops, not found");
-    response.end();
   },
 });
 

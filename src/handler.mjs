@@ -8,13 +8,18 @@ import { generateInstance } from "./factories/userFactory.mjs";
 
 const currentDir = dirname(fileURLToPath(import.meta.url));
 
-const filePath = join(currentDir, "/database", "data.json");
+const filePath = join(currentDir, "./../database", "data.json");
 const userService = generateInstance({ filePath });
 
-const userRoutes = routes({ userService: {} });
+const userRoutes = routes({ userService });
 
 const allRoutes = {
   ...userRoutes,
+  default: (request, response) => {
+    response.writeHead(404, DEFAULT_HEADERS);
+    response.write("ooops, not found");
+    response.end();
+  },
 };
 
 function handler(request, response) {
